@@ -1,6 +1,6 @@
 "use client"
 
-import { Compass, Layout } from "lucide-react"
+import { Layout, Compass } from "lucide-react"
 import { SidebarItem } from "./sidebar-item"
 
 const guestRoutes = [
@@ -13,20 +13,21 @@ const guestRoutes = [
     icon: Compass,
     label: "Browse",
     href: "/search",
-  }
+  },
 ]
 export const SidebarRoutes = () => {
   const routes = guestRoutes
 
-  return(
+ 
+  return (
     <div className="flex flex-col w-full">
-      {routes.map((route) =>(
+      {routes.map((route) => (
         <SidebarItem
           key={route.href}
           icon={route.icon}
           label={route.label}
-          href={route.href}        
-        />        
+          href={route.href}
+        />
       ))}
     </div>
   )
