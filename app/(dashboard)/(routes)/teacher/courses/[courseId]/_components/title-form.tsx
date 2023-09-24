@@ -15,9 +15,10 @@ import {
 
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
+import { Pencil } from "lucide-react"
 
 interface TitleFormProps {
-  initalData: {
+  initialData: {
     title: string;
   }
   courseId: string
@@ -27,6 +28,7 @@ const formSchema = z.object({
     message: "Title is required "
   })
 })
+
 
 export const TitleForm = ({
   initialData,
@@ -40,8 +42,7 @@ export const TitleForm = ({
 
   const {isSubmitting, isValid} = form.formState
 
-  const onSubmit = async (values: z.infer<typeof formSchema>)
-  => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
     // try {
       
@@ -52,7 +53,13 @@ export const TitleForm = ({
   }
   return(
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
-      Title Form
+      <div className="font-medium flex items-center justify-between">
+        Course Title
+          <Button variant="ghost">
+            <Pencil className="h-4 w-4 mr-2" />
+              Edit title
+          </Button>
+      </div>
     </div>
   )
 }
