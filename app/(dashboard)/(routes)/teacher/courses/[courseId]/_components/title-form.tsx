@@ -22,16 +22,36 @@ interface TitleFormProps {
   }
   courseId: string
 }
-
 const formSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required "
   })
 })
 
-export const TitleForm = () => {
+export const TitleForm = ({
+  initialData,
+  courseId
+}: TitleFormProps) => {
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData
+  })
+
+  const {isSubmitting, isValid} = form.formState
+
+  const onSubmit = async (values: z.infer<typeof formSchema>)
+  => {
+    console.log(values);
+    // try {
+      
+    // } catch (error) {
+      
+    // }
+    
+  }
   return(
-    <div>
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       Title Form
     </div>
   )
