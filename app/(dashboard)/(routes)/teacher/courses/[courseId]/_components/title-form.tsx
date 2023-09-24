@@ -77,8 +77,31 @@ export const TitleForm = ({
         <p className="text-sm mt-2">
           {initialData.title}
         </p>
-      )}            
+      )} 
+      {isEditing &&(
+        <Form {... form}>
+          <form
+           onSubmit={form.handleSubmit(onSubmit)}
+           className="space-y-4 mt-4"
+          >
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input disabled={isSubmitting}
+                    placeholder="Advanced development"
+                    {...field}>
+                    </Input>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </form>
 
+        </Form>
+      )     }      
     </div>
   )
 }
