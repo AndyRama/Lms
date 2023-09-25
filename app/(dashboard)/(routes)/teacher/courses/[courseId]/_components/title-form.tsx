@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Pencil,Router } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -37,6 +37,7 @@ export const TitleForm = ({
   initialData,
   courseId
 }: TitleFormProps) => {
+
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -76,11 +77,13 @@ export const TitleForm = ({
           )}
         </Button>
       </div>
+
       {!isEditing && (
-        <p className="text-sm mt-2">
+        <p className= "text-sm mt-2">
           {initialData.title}
         </p>
       )}
+
       {isEditing && (
         <Form {...form}>
           <form
@@ -95,7 +98,7 @@ export const TitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced development'"
+                      placeholder= "e.g. 'Advanced development'"
                       {...field}
                     />
                   </FormControl>

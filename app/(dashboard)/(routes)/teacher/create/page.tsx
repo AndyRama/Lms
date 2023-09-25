@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import toast from "react-hot-toast";
 
 import {
   Form,
@@ -17,13 +18,12 @@ import {
   FormItem,
 } from "@/components/ui/form";
 
-import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message:"Title is required"
+    message: "Title is required"
   }),
 })
 
