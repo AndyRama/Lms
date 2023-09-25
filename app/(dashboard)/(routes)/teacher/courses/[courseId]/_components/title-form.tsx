@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import * as z from "zod"
-import axios from "axios"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import * as z from "zod";
+import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import {Input} from "@/components/ui/input"
-import {Button} from "@/components/ui/button"
-import { Pencil, Router } from "lucide-react"
-import { useState } from "react"
-import toast from "react-hot-toast"
-import{ useRouter} from "next/navigation"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Pencil,Router } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -18,76 +18,74 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form"
-
-
+} from "@/components/ui/form";
 
 interface TitleFormProps {
   initialData: {
     title: string;
-  }
-  courseId: string
-}
+  };
+  courseId: string;
+};
+
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: "Title is required "
-  })
-})
-
+    message: "Title is required",
+  }),
+});
 
 export const TitleForm = ({
   initialData,
   courseId
 }: TitleFormProps) => {
-  const [isEditing, setEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
-  const toggleEdit = () => setEditing((current) => !current)
-  const router = useRouter()
+  const toggleEdit = () => setIsEditing((current) => !current);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
 
-  const {isSubmitting, isValid} = form.formState
+  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // console.log(values);
     try {
-      await axios.patch(`api/course/${courseId}`, values)
-      toast.success("Course Title updated") 
-      toggleEdit()
-      router.refresh()     
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Course Title updated");
+      toggleEdit();
+      router.refresh();
     } catch {
-      toast.error("Something not work !")      
-    }    
+      toast.error("Something not work !");
+    }
   }
 
-  return(
+  return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Title
-          <Button onClick={toggleEdit} variant="ghost">
-            {isEditing ? (
-              <>Cancel</>
-            ) : (
-              <>
-                <Pencil className="h-4 w-4 mr-2"/>
-                Edit title
-              </>
-            )} 
-          </Button>
+        Course title
+        <Button onClick={toggleEdit} variant="ghost">
+          {isEditing ? (
+            <>Cancel</>
+          ) : (
+            <>
+              <Pencil className="h-4 w-4 mr-2" />
+              Edit title
+            </>
+          )}
+        </Button>
       </div>
       {!isEditing && (
         <p className="text-sm mt-2">
           {initialData.title}
         </p>
-      )} 
-      {isEditing &&(
-        <Form {... form}>
+      )}
+      {isEditing && (
+        <Form {...form}>
           <form
-           onSubmit={form.handleSubmit(onSubmit)}
-           className="space-y-4 mt-4"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 mt-4"
           >
             <FormField
               control={form.control}
@@ -95,25 +93,27 @@ export const TitleForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting}
-                    placeholder="Advanced development"
-                    {...field}>
-                    </Input>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'Advanced development'"
+                      {...field}
+                    />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
               <Button
-                disabled={ !isValid || isSubmitting }
+                disabled={!isValid || isSubmitting}
                 type="submit"
               >
-                Save               
+                Save
               </Button>
             </div>
           </form>
         </Form>
-      )}      
+      )}
     </div>
   )
 }
