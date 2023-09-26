@@ -4,9 +4,6 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -19,6 +16,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface TitleFormProps {
   initialData: {
@@ -37,7 +36,6 @@ export const TitleForm = ({
   initialData,
   courseId
 }: TitleFormProps) => {
-
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -54,11 +52,11 @@ export const TitleForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course Title updated");
+      toast.success("Course updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something not work !");
+      toast.error("Something went wrong");
     }
   }
 
@@ -77,13 +75,11 @@ export const TitleForm = ({
           )}
         </Button>
       </div>
-
       {!isEditing && (
-        <p className= "text-sm mt-2">
+        <p className="text-sm mt-2">
           {initialData.title}
         </p>
       )}
-
       {isEditing && (
         <Form {...form}>
           <form
@@ -98,7 +94,7 @@ export const TitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder= "e.g. 'Advanced development'"
+                      placeholder="e.g. 'Advanced web development'"
                       {...field}
                     />
                   </FormControl>
