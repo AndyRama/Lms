@@ -21,7 +21,7 @@ export async function PATCH(
         id: courseId,
         userId
       },
-      data:{
+      data: {
         ...values,
       }
     })

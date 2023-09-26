@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation";
 import { IconBadge } from "@/components/icon-badge";
 import { LayoutDashboard } from "lucide-react";
+import { DescriptionForm } from "./_components/description-form";
 import { TitleForm } from "./_components/title-form";
 
 const CourseIdPage = async ({
@@ -59,6 +60,11 @@ const CourseIdPage = async ({
           </div>
 
           <TitleForm
+            initialData={course}
+            courseId={course.id}
+            />
+
+          <DescriptionForm
             initialData={course}
             courseId={course.id}
             />
