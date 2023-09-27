@@ -74,6 +74,7 @@ const CourseIdPage = async ({
             initialData={course}
             courseId={course.id}
           />
+          
         </div>
       </div>
     </div>
