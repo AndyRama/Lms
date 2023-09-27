@@ -2,11 +2,8 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
-import { useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import { useState } from "react";
@@ -37,15 +34,6 @@ export const ImageForm = ({
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const router = useRouter();
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-    imageUrl: initialData?.imageUrl || ""
-    },
-  });
-
-  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
