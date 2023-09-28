@@ -29,9 +29,7 @@ const CourseIdPage = async ({
     orderBy : {
       name : "asc"
     }
-  }
-
-  )
+  })  
 
   if(!course) {
     return redirect("/")
