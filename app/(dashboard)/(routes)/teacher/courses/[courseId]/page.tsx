@@ -93,8 +93,7 @@ const CourseIdPage = async ({
         </div>
       </div>
     </div>
-
-   );
+  );
 }
  
 export default CourseIdPage;
