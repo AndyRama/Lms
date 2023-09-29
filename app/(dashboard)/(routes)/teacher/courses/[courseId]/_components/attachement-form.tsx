@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
 
-interface ImageFormProps {
+interface AttachementFormProps {
   initialData: Course;
   courseId: string;
 };
@@ -24,10 +24,10 @@ const formSchema = z.object({
   }),
 });
 
-export const ImageForm = ({
+export const AttachementForm = ({
   initialData,
   courseId
-}: ImageFormProps) => {
+}: AttachementFormProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -49,7 +49,7 @@ export const ImageForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course image
+        Course attachement
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && (
             <>Cancel</>
@@ -58,14 +58,7 @@ export const ImageForm = ({
           {!isEditing && !initialData.imageUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-               Add an image
-            </>            
-          )}
-
-          {!isEditing && initialData.imageUrl &&(
-            <>
-              <Pencil className="h-4 w-4 mr-2" />
-               Edit image
+               Add a file
             </>            
           )}
         </Button>

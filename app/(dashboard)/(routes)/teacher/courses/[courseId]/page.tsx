@@ -8,6 +8,7 @@ import { DescriptionForm } from "./_components/description-form";
 import { ImageForm } from "./_components/image-form";
 import { CategoryForm } from "./_components/category-form";
 import { PriceForm } from "./_components/price-form";
+import { AttachementForm } from "./_components/attachement-form";
 
 const CourseIdPage = async ({
   params
@@ -123,11 +124,13 @@ const CourseIdPage = async ({
             Resources & Attachements
           </h2>
         </div>
-        <ImageForm
-          initialData={course}
-          courseId={course.id}
-          />
       </div>
+        <div className="flex items-center gap-x-2">
+          <AttachementForm
+            initialData={course}
+            courseId={course.id}
+          />
+        </div>
     </div>
   );
 }
