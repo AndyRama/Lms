@@ -14,14 +14,12 @@ import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
 
 interface AttachementFormProps {
-  initialData: Course;
+  initialData: Course & { attachements: Attachement[]};
   courseId: string;
 };
 
 const formSchema = z.object({
-  imageUrl: z.string().min(1, {
-    message: "Image is required",
-  }),
+  url:z.string().min(1)
 });
 
 export const AttachementForm = ({

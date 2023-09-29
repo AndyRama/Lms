@@ -25,6 +25,13 @@ const CourseIdPage = async ({
   const course = await db.course.findUnique({
     where: {
       id: params.courseId
+    },
+    include : {
+      attachements: {
+        orderBy: {
+          describe('first', () => { second })
+        }
+      }
     }
   })
 
@@ -124,13 +131,13 @@ const CourseIdPage = async ({
             Resources & Attachements
           </h2>
         </div>
-      </div>
         <div className="flex items-center gap-x-2">
           <AttachementForm
             initialData={course}
             courseId={course.id}
           />
         </div>
+      </div>
     </div>
   );
 }
