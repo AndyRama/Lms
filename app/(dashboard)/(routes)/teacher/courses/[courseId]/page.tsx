@@ -29,10 +29,10 @@ const CourseIdPage = async ({
     include : {
       attachements: {
         orderBy: {
-          describe('first', () => { second })
-        }
-      }
-    }
+          createdAt:"desc",
+        },
+      },
+    },
   })
 
   const categories = await db.category.findMany({

@@ -35,8 +35,8 @@ export const AttachementForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course image updated");
+      await axios.post(`/api/courses/${courseId}/attachements`, values);
+      toast.success("Course updated");
       toggleEdit();
       router.refresh();
     } catch {
@@ -53,7 +53,7 @@ export const AttachementForm = ({
             <>Cancel</>
           )} 
           
-          {!isEditing && !initialData.imageUrl && (
+          {!isEditing && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
                Add a file
@@ -63,35 +63,28 @@ export const AttachementForm = ({
       </div>
 
       {!isEditing && (
-        !initialData.imageUrl ? (
-          <div className="flex items-center justify-center h-60
-           bg-slate-200 rounded-md">
-            <ImageIcon className="h-10 w-10 text-slate-500 "/>
-          </div>
-        ) : (
-          <div className="relative aspect-video mt-2">
-            <Image
-              alt="Upload"
-              fill
-              className="object-cover rounded-md"
-              src={initialData.imageUrl}
-            />
-          </div>
-        )
+        <>
+          { initialData.attachements.length === 0 && (
+            <p className="text-sm mt-2 text-slate-500 italic">
+              No attachements yet
+            </p>
+          )}
+        </>
       )}
 
      {isEditing && (
         <div>
           <FileUpload
-            endpoint="courseImage"
+            endpoint="courseAttachement"
             onChange={(url) => {
               if (url) {
-                onSubmit({ imageUrl: url });
+                onSubmit({ url: url });
               }
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            16:9 aspect ratio recommended
+            Add anything your students might need to complete the 
+            course.
           </div>
         </div>
       )}
