@@ -5,7 +5,7 @@ import axios from "axios";
 import { Course } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
+import { ImageIcon, Pencil, PlusCircle, File } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -68,6 +68,22 @@ export const AttachementForm = ({
             <p className="text-sm mt-2 text-slate-500 italic">
               No attachements yet
             </p>
+          )}
+          {initialData.attachements.length > 0 &&(
+            <div className="space-y-2">
+              {initialData.attachements.map((attachement) => (
+                <div
+                  key= {attachement.id}
+                  className="flex items-center p-3 bg-slate-100 rounded-md
+                  border-sky-200 border text-sky-700"
+                >
+                  <File className="h-4 w-4 mr-2 flex-shrink-0"/>
+                <p>
+                  {attachement.name}
+                </p>
+                </div>
+              ))}
+            </div>
           )}
         </>
       )}
