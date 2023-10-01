@@ -13,8 +13,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
 
-interface AttachementFormProps {
-  initialData: Course & { attachements: Attachement[]};
+interface AttachmentFormProps {
+  initialData: Course & { attachements: Attachement[] };
   courseId: string;
 };
 
@@ -25,7 +25,7 @@ const formSchema = z.object({
 export const AttachementForm = ({
   initialData,
   courseId
-}: AttachementFormProps) => {
+}: AttachmentFormProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
 
