@@ -5,7 +5,7 @@ import axios from "axios";
 import { Attachment, Course } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pencil, PlusCircle, File } from "lucide-react";
+import { ImageIcon, Pencil, PlusCircle, File, Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -95,6 +95,17 @@ export const AttachementForm = ({
                 <p>
                   {attachement.name}
                 </p>
+                {deletingId === attachement.id && (
+                  <div>
+                    <Loader2 className="h-4 w-4 animate-spin"/>
+                  </div>
+                )}
+                {deletingId !== attachement.id && (
+                  <button onClick={() => onDelete(attachement.id)}>
+                    <Pencil className="h-4 w-4 flex-shrink-0"/>
+                  </button>
+                  
+                )}
                 </div>
               ))}
             </div>
