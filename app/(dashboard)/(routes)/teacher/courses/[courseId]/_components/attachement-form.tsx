@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Course } from "@prisma/client";
+import { Attachment, Course } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
 import { ImageIcon, Pencil, PlusCircle, File } from "lucide-react";
@@ -14,7 +14,7 @@ import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
 
 interface AttachmentFormProps {
-  initialData: Course & { attachements: Attachement[] };
+  initialData: Course & { attachements: Attachment[] };
   courseId: string;
 };
 
