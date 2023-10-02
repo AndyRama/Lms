@@ -28,6 +28,7 @@ export const AttachementForm = ({
 }: AttachmentFormProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
+  const [deletingId, setDeletingId] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -41,6 +42,19 @@ export const AttachementForm = ({
       router.refresh();
     } catch {
       toast.error("Something not work !");
+    }
+  }
+
+  const onDelete = async (id: string) => {
+    try {
+      setDeletingId(id);
+      await axios.delete(`/api/courses/${courseId}/attachements/${id}`);
+      toast.success("Attachement deleted");
+      router.refresh()
+    } catch (error) {
+      toast.error("Something went wrong !");
+    }finally {
+      setDeletingId(null)
     }
   }
 
