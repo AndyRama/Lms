@@ -5,7 +5,7 @@ import axios from "axios";
 import { Attachment, Course } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pencil, PlusCircle, File, Loader2 } from "lucide-react";
+import { ImageIcon, Pencil, PlusCircle, File, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,7 @@ export const AttachementForm = ({
 }: AttachmentFormProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
-  const [deletingId, setDeletingId] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -51,9 +51,9 @@ export const AttachementForm = ({
       await axios.delete(`/api/courses/${courseId}/attachements/${id}`);
       toast.success("Attachement deleted");
       router.refresh()
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong !");
-    }finally {
+    } finally {
       setDeletingId(null)
     }
   }
@@ -83,16 +83,16 @@ export const AttachementForm = ({
               No attachements yet
             </p>
           )}
-          {initialData.attachements.length > 0 &&(
+          {initialData.attachements.length > 0 && (
             <div className="space-y-2">
               {initialData.attachements.map((attachement) => (
                 <div
-                  key= {attachement.id}
-                  className="flex items-center p-3 bg-slate-100 rounded-md
-                  border-sky-200 border text-sky-700"
+                  key={attachement.id}
+                  className="flex items-center p-3 w-full bg-sky-100
+                  border-sky-200 border text-sky-700 rounded-sm"
                 >
                   <File className="h-4 w-4 mr-2 flex-shrink-0"/>
-                <p>
+                <p className="text-xs line-clamp-1">
                   {attachement.name}
                 </p>
                 {deletingId === attachement.id && (
@@ -101,10 +101,11 @@ export const AttachementForm = ({
                   </div>
                 )}
                 {deletingId !== attachement.id && (
-                  <button onClick={() => onDelete(attachement.id)}>
-                    <Pencil className="h-4 w-4 flex-shrink-0"/>
+                  <button 
+                    className="ml-auto hover:opacity-75 transition"
+                  >
+                    <X className="h-4 w-4"/>
                   </button>
-                  
                 )}
                 </div>
               ))}
