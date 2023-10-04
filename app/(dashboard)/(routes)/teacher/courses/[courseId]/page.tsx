@@ -13,12 +13,12 @@ import { AttachementForm } from "./_components/attachement-form";
 const CourseIdPage = async ({
   params
 }: {
-  params: { courseId: string}
+  params: { courseId: string }
 }) => {
 
   const { userId } = auth()
 
-  if(!userId) {
+  if (!userId) {
     return redirect("/")
   }
 
@@ -26,38 +26,38 @@ const CourseIdPage = async ({
     where: {
       id: params.courseId
     },
-    include : {
+    include: {
       attachements: {
         orderBy: {
-          createdAt:"desc",
+          createdAt: "desc",
         },
       },
     },
   })
 
   const categories = await db.category.findMany({
-    orderBy : {
-      name : "asc"
+    orderBy: {
+      name: "asc"
     }
-  })  
+  })
 
-  if(!course) {
+  if (!course) {
     return redirect("/")
   }
-  
+
   const requiredField = [
     course.title,
     course.description,
-    course.imageUrl,  
+    course.imageUrl,
     course.price,
     course.categoryId,
   ]
 
   const totalFields = requiredField.length
   const completedFields = requiredField.filter(Boolean).length
-  const completionText =`(${completedFields} / ${totalFields})` 
+  const completionText = `(${completedFields} / ${totalFields})`
 
-  return ( 
+  return (
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
@@ -67,10 +67,10 @@ const CourseIdPage = async ({
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">  
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div>
           <div className="flex items-center gap-x-2">
-            <IconBadge icon={LayoutDashboard}/>
+            <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">
               Customize you course
             </h2>
@@ -79,7 +79,7 @@ const CourseIdPage = async ({
           <TitleForm
             initialData={course}
             courseId={course.id}
-            />
+          />
 
           <DescriptionForm
             initialData={course}
@@ -93,27 +93,28 @@ const CourseIdPage = async ({
 
           <CategoryForm
             initialData={course}
-            courseId={course.id} 
+            courseId={course.id}
             options={categories.map((category) => ({
               label: category.name,
               value: category.id,
-            }))}  
+            }))}
           />
         </div>
         <div className="space-y-6">
           <div>
             <div className="flex items-center gap-x-2">
-              <IconBadge icon={ListChecks}/>
-              <h2 className="text-xl" > 
+              <IconBadge icon={ListChecks} />
+              <h2 className="text-xl" >
                 Course chapters
               </h2>
             </div>
-            <div>
-              TODO: Chapters
-            </div>
+            <DescriptionForm
+              initialData={course}
+              courseId={course.id}
+            />
           </div>
           <div className="flex items-center gap-x-2">
-            <IconBadge icon={CircleDollarSign}/>
+            <IconBadge icon={CircleDollarSign} />
             <h2 className="text-xl">
               Sell you course
             </h2>
@@ -122,24 +123,24 @@ const CourseIdPage = async ({
             initialData={course}
             courseId={course.id}
           />
-          <div className="flex items-center gap-x-2">
-            <IconBadge icon={File}/>
-            <h2 className="text-xl">
-              Resources & Attachements
-            </h2>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <AttachementForm
-              initialData={course}
-              courseId={course.id}
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={File} />
+              <h2 className="text-xl">
+                Resources & Attachements
+              </h2>
+            </div>
+            <div className="flex items-center gap-x-2">
+              <AttachementForm
+                initialData={course}
+                courseId={course.id}
               />
+            </div>
           </div>
         </div>
-      <div>
-            </div>
       </div>
     </div>
   );
 }
- 
+
 export default CourseIdPage;
