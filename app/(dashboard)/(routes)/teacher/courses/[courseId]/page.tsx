@@ -122,21 +122,21 @@ const CourseIdPage = async ({
             initialData={course}
             courseId={course.id}
           />
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={File}/>
+            <h2 className="text-xl">
+              Resources & Attachements
+            </h2>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <AttachementForm
+              initialData={course}
+              courseId={course.id}
+              />
+          </div>
         </div>
-      </div>
       <div>
-        <div className="flex items-center gap-x-2">
-          <IconBadge icon={File}/>
-          <h2 className="text-xl">
-            Resources & Attachements
-          </h2>
-        </div>
-        <div className="flex items-center gap-x-2">
-          <AttachementForm
-            initialData={course}
-            courseId={course.id}
-          />
-        </div>
+            </div>
       </div>
     </div>
   );
