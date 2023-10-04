@@ -23,21 +23,21 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
 
-interface DescriptionFormProps {
+interface ChapterFormProps {
   initialData: Course;
   courseId: string;
 };
 
 const formSchema = z.object({
   description: z.string().min(1, {
-    message: "Description is required",
+    message: "Chapter is required",
   }),
 });
 
-export const DescriptionForm = ({
+export const ChapterForm = ({
   initialData,
   courseId
-}: DescriptionFormProps) => {
+}: ChapterFormProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
 
