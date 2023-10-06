@@ -10,7 +10,7 @@ import {
 } from "@hello-pangea/dnd";
 
 import { cn } from "@/lib/utils";
-import { Badge, Grip } from "lucide-react";
+import { Badge, Grip, Pencil } from "lucide-react";
 
 interface ChaptersListProps {
   items: Chapter[];
@@ -85,12 +85,16 @@ export const ChaptersList = ({
                       >
                         {chapter.isPublished ? "Published" : "Drafts"}
                       </Badge>
-
+                      <Pencil
+                        onClick={() => onEdit(chapter.id)}
+                        className="w-4 h-4 cursor-pointer hover:opacity-75 transition"
+                      />
                     </div>
                   </div>                     
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
           </div>
           
         )}
