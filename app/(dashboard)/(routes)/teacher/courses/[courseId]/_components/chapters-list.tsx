@@ -35,12 +35,25 @@ export const ChaptersList = ({
     setIsMounted(true);
   }, [items])
 
+  const onDragEnd = ( result: DropResult) => { 
+    if(!result.destination) return
+
+    const items = Array.from(chapters)
+    const [reorderedItem] = items.splice(result.source.index, 1 )
+    items.splice(result.destination.index, 0, reorderedItem)
+
+    const startIndex = Math.min(result.source.index, result.destination.index)
+    const endIndex = Math.max(result.source.index, result.destination.index)
+
+    const updatedChapter = items.slice(startIndex, endIndex + 1 )
+  }
+
   if(!isMounted) {
     return null
   }
 
   return  ( 
-    <DragDropContext onDragEnd={ () => {}}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="chapters">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
