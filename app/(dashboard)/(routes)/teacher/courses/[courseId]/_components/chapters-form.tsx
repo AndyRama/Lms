@@ -68,8 +68,7 @@ export const ChapterForm = ({
     }
   }
 
-  const onReorder = async (updateData: { id: string; position: number }
-   ,[]) => {
+  const onReorder = async (updateData: { id: string; position: number },[]) => {
     try {
       setIsUpdating(true)
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
@@ -84,10 +83,15 @@ export const ChapterForm = ({
     }
   }
 
+  const onEdit = (id : string) => {
+    router.push(`/teacher/courses/${courseId}/chapters/${id}`)
+  }
+
   return (    
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="relative mt-6 border bg-slate-100 rounded-md p-4">
       { isUpdating && (
-        <div>
+        <div className="absolute h-full w-full bg-slate-500/20 top-0
+          right-0 rounded-m flex items-center justify-center">
           <Loader2 className="animate-spin h-6 w-6 text-sky-700"/>
         </div>
       )}
@@ -142,7 +146,7 @@ export const ChapterForm = ({
           )}>
           {!initialData.chapters.length && "No chapters"}
           <ChaptersList 
-            onEdit={() => {}}
+            onEdit={onEdit}
             onReorder={onReorder}
             items={initialData.chapters || [] }
           />
