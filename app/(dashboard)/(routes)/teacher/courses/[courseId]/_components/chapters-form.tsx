@@ -76,15 +76,15 @@ export const ChapterForm = ({
         list: updateData
       })
       toast.success("Chapters reorder"); 
+      router.refresh()   
     } catch {
-      toast.error("Something not work !");      
+      toast.error("Something not work !");   
     } finally {
       setIsUpdating(false)
     }
   }
 
-  return (
-    
+  return (    
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course chapter
@@ -138,7 +138,7 @@ export const ChapterForm = ({
           {!initialData.chapters.length && "No chapters"}
           <ChaptersList 
             onEdit={() => {}}
-            onReorder={() => {}}
+            onReorder={onReorder}
             items={initialData.chapters || [] }
           />
         </div>
