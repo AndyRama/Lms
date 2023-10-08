@@ -68,6 +68,21 @@ export const ChapterForm = ({
     }
   }
 
+  const onReorder = async (updateData: { id: string; position: number }
+   ,[]) => {
+    try {
+      setIsUpdating(true)
+      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updateData
+      })
+      toast.success("Chapters reorder"); 
+    } catch {
+      toast.error("Something not work !");      
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
   return (
     
     <div className="mt-6 border bg-slate-100 rounded-md p-4">

@@ -14,7 +14,7 @@ import { Badge, Grip, Pencil } from "lucide-react";
 
 interface ChaptersListProps {
   items: Chapter[];
-  onReorder: (updateData:{ id: string; positon: number;}[]) => void;
+  onReorder: (updateData:{ id: string; positon: number }[]) => void;
   onEdit: (id: string) => void;  
 }
 
@@ -43,9 +43,19 @@ export const ChaptersList = ({
     items.splice(result.destination.index, 0, reorderedItem)
 
     const startIndex = Math.min(result.source.index, result.destination.index)
+    
     const endIndex = Math.max(result.source.index, result.destination.index)
 
-    const updatedChapter = items.slice(startIndex, endIndex + 1 )
+    const updatedChapters = items.slice(startIndex, endIndex + 1 )
+
+    setChapters(items)
+
+    const bulkUpdateData = updatedChapters.map((chapter) => ({
+      id: chapter.id,
+      position: items.findIndex((item) => item.id === chapter.id)      
+    }))
+    
+    onReorder(bulkUpdateData)
   }
 
   if(!isMounted) {
