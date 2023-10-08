@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Pencil, PlusCircle } from "lucide-react";
+import { Loader2, Pencil, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -86,6 +86,11 @@ export const ChapterForm = ({
 
   return (    
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
+      { isUpdating && (
+        <div>
+          <Loader2 className="animate-spin h-6 w-6 text-sky-700"/>
+        </div>
+      )}
       <div className="font-medium flex items-center justify-between">
         Course chapter
         <Button onClick={toggleCreating} variant="ghost">
