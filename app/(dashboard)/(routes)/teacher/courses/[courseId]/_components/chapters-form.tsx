@@ -24,7 +24,7 @@ import { Chapter, Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { ChaptersList } from "./chapters-list";
 
-interface ChapterFormProps {
+interface ChaptersFormProps {
   initialData: Course & { chapters: Chapter[] };
   courseId: string;
 };
@@ -33,10 +33,10 @@ const formSchema = z.object({
   title: z.string().min(1),
 });
 
-export const ChapterForm = ({
+export const ChaptersForm = ({
   initialData,
   courseId
-}: ChapterFormProps) => {
+}: ChaptersFormProps) => {
 
   const [isCreating, setIsCreating] = useState(false);
 
@@ -68,7 +68,7 @@ export const ChapterForm = ({
     }
   }
 
-  const onReorder = async (updateData: { id: string; position: number },[]) => {
+  const onReorder = async (updateData: { id: string; position: number }[]) => {
     try {
       setIsUpdating(true)
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
