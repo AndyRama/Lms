@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ChapterTitleForm } from "@/components/chapter-title-form"
+import { ChapterTitleForm } from "./_components/chapter-title-form";
 
 const ChapterIdPage = async ({
   params
