@@ -3,13 +3,13 @@ import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation";
 import { IconBadge } from "@/components/icon-badge";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
-import { TitleForm } from "./_components/title-form";
-import { DescriptionForm } from "./_components/description-form";
-import { ImageForm } from "./_components/image-form";
-import { CategoryForm } from "./_components/category-form";
-import { PriceForm } from "./_components/price-form";
-import { AttachementForm } from "./_components/attachement-form";
-import { ChaptersForm } from "./_components/chapters-form";
+import { TitleForm } from "../_components/title-form";
+import { DescriptionForm } from "../_components/description-form";
+import { ImageForm } from "../_components/image-form";
+import { CategoryForm } from "../_components/category-form";
+import { PriceForm } from "../_components/price-form";
+import { AttachementForm } from "../_components/attachement-form";
+import { ChaptersForm } from "../_components/chapters-form";
 
 const CourseIdPage = async ({
   params

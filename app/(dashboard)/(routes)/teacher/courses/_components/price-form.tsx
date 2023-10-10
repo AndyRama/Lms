@@ -4,11 +4,12 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -17,8 +18,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
+import { Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";
 
@@ -28,13 +30,14 @@ interface PriceFormProps {
 };
 
 const formSchema = z.object({
-  price: z.coerce.number(),
+  price: z.coerce.number()
 });
 
 export const PriceForm = ({
   initialData,
   courseId
 }: PriceFormProps) => {
+
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -44,7 +47,7 @@ export const PriceForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      price: initialData?.price || undefined,
+    price: initialData?.price || undefined
     },
   });
 
@@ -53,11 +56,11 @@ export const PriceForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course updated");
+      toast.success("Course Description updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Something not work !");
     }
   }
 
@@ -76,41 +79,43 @@ export const PriceForm = ({
           )}
         </Button>
       </div>
+
       {!isEditing && (
-        <p className={cn(
+        <p className= {cn(
           "text-sm mt-2",
-          !initialData.price && "text-slate-500 italic"
+          !initialData.price && "text-slate-500"
         )}>
           {initialData.price
             ? formatPrice(initialData.price)
-            : "No price"
-          }
+            :"No price"
+          } 
         </p>
       )}
+
       {isEditing && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 mt-4"
           >
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      disabled={isSubmitting}
-                      placeholder="Set a price for your course"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    disabled={isSubmitting}
+                    placeholder= "Set price for your course"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
             <div className="flex items-center gap-x-2">
               <Button
                 disabled={!isValid || isSubmitting}

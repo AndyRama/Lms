@@ -4,13 +4,11 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
+import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -19,20 +17,19 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Course } from "@prisma/client";
+import { Textarea } from "@/components/ui/textarea";
 import { Combobox } from "@/components/ui/combobox";
 
 interface CategoryFormProps {
   initialData: Course;
   courseId: string;
-  options: { label: string; value: string} []
+  options: { label: string; value: string; }[];
 };
 
 const formSchema = z.object({
-    categoryId: z.string().min(1, {
-  }),
+  categoryId: z.string().min(1),
 });
 
 export const CategoryForm = ({
@@ -40,8 +37,8 @@ export const CategoryForm = ({
   courseId,
   options,
 }: CategoryFormProps) => {
-
   const [isEditing, setIsEditing] = useState(false);
+
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const router = useRouter();
@@ -49,7 +46,7 @@ export const CategoryForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-    categoryId: initialData?.categoryId || ""
+      categoryId: initialData?.categoryId || ""
     },
   });
 
@@ -58,11 +55,11 @@ export const CategoryForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course category updated");
+      toast.success("Course updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something not work !");
+      toast.error("Something went wrong");
     }
   }
 
@@ -78,21 +75,19 @@ export const CategoryForm = ({
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-                Edit category
+              Edit category
             </>
           )}
         </Button>
       </div>
-
       {!isEditing && (
-        <p className= {cn(
+        <p className={cn(
           "text-sm mt-2",
           !initialData.categoryId && "text-slate-500 italic"
         )}>
-          {selectedOption?.label ||" No category"}
+          {selectedOption?.label || "No category"}
         </p>
       )}
-
       {isEditing && (
         <Form {...form}>
           <form

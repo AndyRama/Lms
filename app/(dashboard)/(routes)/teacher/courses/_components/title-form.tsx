@@ -8,7 +8,6 @@ import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -17,24 +16,26 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { formatPrice } from "@/lib/format";
+import { Button } from "@/components/ui/button";
 
-interface PriceFormProps {
-  initialData: Course;
+interface TitleFormProps {
+  initialData: {
+    title: string;
+  };
   courseId: string;
 };
 
 const formSchema = z.object({
-  price: z.coerce.number(),
+  title: z.string().min(1, {
+    message: "Title is required",
+  }),
 });
 
-export const PriceForm = ({
+export const TitleForm = ({
   initialData,
   courseId
-}: PriceFormProps) => {
+}: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -43,9 +44,7 @@ export const PriceForm = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      price: initialData?.price || undefined,
-    },
+    defaultValues: initialData,
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -64,27 +63,21 @@ export const PriceForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course price
+        Course title
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit price
+              Edit title
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
-        <p className={cn(
-          "text-sm mt-2",
-          !initialData.price && "text-slate-500 italic"
-        )}>
-          {initialData.price
-            ? formatPrice(initialData.price)
-            : "No price"
-          }
+        <p className="text-sm mt-2">
+          {initialData.title}
         </p>
       )}
       {isEditing && (
@@ -95,15 +88,13 @@ export const PriceForm = ({
           >
             <FormField
               control={form.control}
-              name="price"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
-                      type="number"
-                      step="0.01"
                       disabled={isSubmitting}
-                      placeholder="Set a price for your course"
+                      placeholder="e.g. 'Advanced web development'"
                       {...field}
                     />
                   </FormControl>
