@@ -96,7 +96,9 @@ export const ChapterDescriptionForm = ({
               render={({  }) => (
                 <FormItem>
                   <FormControl>
-                   
+                   <Editor
+                      {...field}
+                   />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
