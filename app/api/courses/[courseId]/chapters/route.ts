@@ -9,6 +9,7 @@ export async function POST(
   try {
     const { userId } = auth();
     const { title } = await req.json();
+
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -38,8 +39,8 @@ export async function POST(
     const chapter = await db.chapter.create({
       data: {
         title,
-        position: newPosition,
         courseId: params.courseId,
+        position: newPosition,
       }
     })
     

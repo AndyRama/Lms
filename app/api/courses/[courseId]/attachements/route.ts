@@ -26,7 +26,7 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const attachment = await db.attachment.create({
+    const attachment = await db.attachement.create({
       data: {
         url,
         name: url.split("/").pop(),

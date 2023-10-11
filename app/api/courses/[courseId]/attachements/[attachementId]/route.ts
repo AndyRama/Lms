@@ -1,11 +1,10 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { json } from "stream/consumers";
 
 export async function DELETE(  
   req: Request,
-  { params } : { params: { courseId: string, attachementId: string } }
+  { params } : { params: { courseId: string, attachmentId: string } }
 ) {
   try {
     const {userId} = auth()
@@ -28,7 +27,7 @@ export async function DELETE(
     const attachment = await db.attachement.delete({
       where: {
         courseId: params.courseId,
-        id: params.attachementId,
+        id: params.attachmentId,
       }
     })
     return NextResponse.json(attachment)
