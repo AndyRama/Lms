@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
@@ -89,6 +89,14 @@ const ChapterIdPage = async ({
               courseId={params.courseId}
               chapterId={params.chapterId}
             />
+          </div>
+          <div>
+            <div className="flex items-centrer gap-x-2">
+              <IconBadge icon={Eye}/>
+              <h2 className="text-xl">
+                Access Settings
+              </h2>
+            </div>
           </div>
         </div>
       </div>
