@@ -17,10 +17,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Editor } from "@/components/ui/editor";
 import { Preview } from "@/components/ui/preview";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface ChapterAccessFormProps {
   initialData: Chapter;
@@ -29,7 +31,7 @@ interface ChapterAccessFormProps {
 };
 
 const formSchema = z.object({
-  access: z.string().min(1),
+  isFree: z.boolean().default(false)
 });
 
 export const ChapterAccessForm = ({
@@ -47,7 +49,7 @@ export const ChapterAccessForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      access: initialData?.description || ""
+      isFree: !!initialData?.isFree
     },
   });
 
@@ -100,15 +102,13 @@ export const ChapterAccessForm = ({
           >
             <FormField
               control={form.control}
-              name="access"
+              name="isFree"
               render={({ field }) => (
-                <FormItem>
+                <FormItem
+                  className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Editor
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
+                    <Checkbox/>
+                  </FormControl> 
                 </FormItem>
               )}
             />
