@@ -17,7 +17,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Editor } from "@/components/ui/editor";
@@ -85,10 +84,11 @@ export const ChapterDescriptionForm = ({
           !initialData.description && "text-slate-500 italic"
         )}>
           {!initialData.description && "No description"}
-          {! initialData.description && (
-            <Preview value={initialData.description}/>
+          {initialData.description && (
+            <Preview
+              value={initialData.description}
+            />
           )}
-
         </div>
       )}
       {isEditing && (
@@ -100,12 +100,12 @@ export const ChapterDescriptionForm = ({
             <FormField
               control={form.control}
               name="description"
-              render={({  }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                   <Editor
+                    <Editor
                       {...field}
-                   />
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
