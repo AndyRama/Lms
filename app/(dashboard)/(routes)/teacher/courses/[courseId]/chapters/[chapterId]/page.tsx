@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
@@ -103,6 +103,12 @@ const ChapterIdPage = async ({
                 chapterId={params.chapterId}
               />
             </div>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={Video}/>
+            <h2 className="text-xl">
+              Add a video
+            </h2>
           </div>
         </div>
       </div>

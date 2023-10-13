@@ -13,6 +13,7 @@ import { Chapter } from "@prisma/client";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -69,14 +70,14 @@ export const ChapterAccessForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Chapter description
+        Chapter access 
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
             <Pencil className="h-4 w-4 mr-2" />
-              Edit description
+              Edit access
             </>
           )}
         </Button>
@@ -84,13 +85,16 @@ export const ChapterAccessForm = ({
       {!isEditing && (
         <div className={cn(
           "text-sm mt-2",
-          !initialData.description && "text-slate-500 italic"
+          !initialData.isFree && "text-slate-500 italic"
         )}>
-          {!initialData.description && "No description"}
-          {initialData.description && (
-            <Preview
-              value={initialData.description}
-            />
+          {initialData.isFree ? (
+            <>
+              This chapter is free for previews.
+            </>
+          ):(
+            <>
+              This chapter is not free.
+            </>
           )}
         </div>
       )}
@@ -107,8 +111,16 @@ export const ChapterAccessForm = ({
                 <FormItem
                   className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Checkbox/>
+                    <Checkbox 
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl> 
+                  <div className="space-y-1">
+                    <FormDescription>
+                      Check this box if you want to make this chapter free for previews
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />
