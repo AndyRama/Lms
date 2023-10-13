@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon } from "lucide-react";
+import { Pencil, PlusCircle, ImageIcon, VideoIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -12,8 +12,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
-interface ChapterVideoProps {
-  initialData: Chapter & [{ MuxData?: MuxData | null }]
+interface ChapterVideoFormProps {
+  initialData: Chapter & { MuxData?: MuxData | null };
   courseId: string;
   chapterId: string;
 };
@@ -22,10 +22,11 @@ const formSchema = z.object({
   videoUrl: z.string().min(1),
 });
 
-export const ChapterVideo = ({
+export const ChapterVideoForm = ({
   initialData,
+  courseId,
   chapterId
-}: ChapterVideoProps) => {
+}: ChapterVideoFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -34,8 +35,8 @@ export const ChapterVideo = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${chapterId}`, values);
-      toast.success("Course updated");
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
+      toast.success("Chapter updated");
       toggleEdit();
       router.refresh();
     } catch {
@@ -68,16 +69,11 @@ export const ChapterVideo = ({
       {!isEditing && (
         !initialData.videoUrl ? (
           <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
-            <ImageIcon className="h-10 w-10 text-slate-500" />
+            <VideoIcon className="h-10 w-10 text-slate-500" />
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <Image
-              alt="Upload"
-              fill
-              className="object-cover rounded-md"
-              src={initialData.videoUrl}
-            />
+            Video uploaded ! 
           </div>
         )
       )}
@@ -92,10 +88,15 @@ export const ChapterVideo = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            16:9 aspect ratio recommended
+            Upload this chapter&apos;s video
           </div>
         </div>
       )}
+      { initialData.videoUrl && !isEditing && (
+        <div className=" text-sm text-muted-foreground mt-2">
+          Video can take a few minutes to process. Refresh the page if vieo does not appear.
+        </div>
+      ) }
     </div>
   )
 }
