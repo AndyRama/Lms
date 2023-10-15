@@ -70,7 +70,6 @@ export async function PATCH (
           chapterId: params.chapterId,
           assetId: asset.id,
           playbackId: asset.playback_ids?.[0]?.id,
-
         }
       })
     }
