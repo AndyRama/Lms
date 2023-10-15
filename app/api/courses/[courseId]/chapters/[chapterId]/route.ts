@@ -1,7 +1,13 @@
+import Mux from "@mux/mux-node"
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db"
+
+const { Video } = new Mux(
+  process.env.MUX_TOKEN_ID!,
+  process.env.MUX_TOKEN_SECRET!,
+)
 
 export async function PATCH (
   req: Request,
@@ -36,10 +42,32 @@ export async function PATCH (
       }
     })
 
+    
+    if(values.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          chapterId: params.chapterId,
+        }
+      })
+
+      if(existingMuxData) {
+        await Video.Assets.del(existingMuxData.assetId)
+        await db.muxData.delete({
+          where: {
+            id : existingMuxData.id,
+          }
+        })
+      }
+
+      const asset = await Video.Assets.create5{
+        input: value.videoUrl,
+        playBack_policy: "public",
+        test: false,
+      }
+    }
+
     return NextResponse.json(chapter)
-
-    //TODO : handle Video Upload
-
+    
   } catch (error) {
     console.log("[COURSE_CHAPTER_ID", error);
     return new NextResponse("Internal Error", {status : 500 })    
