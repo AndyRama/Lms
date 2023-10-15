@@ -59,11 +59,11 @@ export async function PATCH (
         })
       }
 
-      const asset = await Video.Assets.create5{
-        input: value.videoUrl,
-        playBack_policy: "public",
+      const asset = await Video.Assets.create({
+        input: values.videoUrl,
+        playback_policy: "public",
         test: false,
-      }
+      })
     }
 
     return NextResponse.json(chapter)
