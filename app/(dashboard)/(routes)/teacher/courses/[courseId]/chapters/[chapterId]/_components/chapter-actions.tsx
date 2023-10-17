@@ -1,12 +1,13 @@
 "use client"
 
+import axios from "axios";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button"
 import { Trash } from "lucide-react"
 import { ConfirmModal } from "@/components/modals/confirm-modal";
-import { useState } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
-
+import { useRouter } from "next/navigation";
 
 interface ChapterActionsProps {
   disabled: boolean,
@@ -21,6 +22,9 @@ export const ChapterActions = ({
   chapterId,
   isPublished,
 }: ChapterActionsProps) => {
+
+
+  const router = useRouter()
   
   const[isLoading, setIsLoading] = useState(false)
   
@@ -32,6 +36,8 @@ export const ChapterActions = ({
       await axios.delete(`/api/course/${courseId}/chapters/${chapterId}`)
 
       toast.success("Chapter deleted")
+      router.refresh()
+      router.push(`/teacher/courses/${courseId}`)
 
     } catch {
       toast.error("Something went wrong")
@@ -50,7 +56,7 @@ export const ChapterActions = ({
       >
         {isPublished ? "Unpublish" : "Publish"}
       </Button>  
-      <ConfirmModal onConfirm= { () => {}}>
+      <ConfirmModal onConfirm= {onDelete}>
 
         <Button size="sm">
           <Trash className="h-4 w-4"/>  
