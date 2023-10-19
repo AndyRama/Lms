@@ -11,6 +11,7 @@ import { CategoryForm } from "../_components/category-form";
 import { PriceForm } from "../_components/price-form";
 import { AttachementForm } from "../_components/attachement-form";
 import { ChaptersForm } from "../_components/chapters-form";
+import { Actions } from "./_components/actions";
 
 const CourseIdPage = async ({
   params
@@ -69,7 +70,7 @@ const CourseIdPage = async ({
 
   return (
     <>
-      {course.isPublished && (
+      {!course.isPublished && (
         <Banner
           label="This course is unplublished. it will visible to the students."
         />
@@ -83,6 +84,11 @@ const CourseIdPage = async ({
             </span>
           </div>
         </div>
+        <Actions
+          disabled={!isComplete} 
+          courseId={params.courseId} 
+          isPublished={course.isPublished}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
           <div>
             <div className="flex items-center gap-x-2">

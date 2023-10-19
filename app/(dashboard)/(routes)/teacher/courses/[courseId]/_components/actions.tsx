@@ -9,19 +9,19 @@ import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-interface ChapterActionsProps {
+interface ActionsProps {
   disabled: boolean,
   courseId: string,
   chapterId: string,
   isPublished: boolean,
 }
 
-export const ChapterActions = ({
+export const Actions = ({
   disabled,
   courseId,
   chapterId,
   isPublished,
-}: ChapterActionsProps) => {
+}: ActionsProps) => {
 
 
   const router = useRouter()
