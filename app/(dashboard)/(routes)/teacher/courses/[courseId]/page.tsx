@@ -85,10 +85,10 @@ const CourseIdPage = async ({
           </div>
         </div>
         <Actions
-          disabled={!isComplete} 
-          courseId={params.courseId} 
-          isPublished={course.isPublished}
-        />
+          disabled={!isComplete}
+          courseId={params.courseId}
+
+          isPublished={course.isPublished} chapterId={""}        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
           <div>
             <div className="flex items-center gap-x-2">
