@@ -1,13 +1,16 @@
 "use client"
 
 import axios from "axios";
-import { useState } from "react";
-
-import { Button } from "@/components/ui/button"
 import { Trash } from "lucide-react"
-import { ConfirmModal } from "@/components/modals/confirm-modal";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+
+
+import { Button } from "@/components/ui/button"
+import { ConfirmModal } from "@/components/modals/confirm-modal";
+import {useConfettiStore} from "@/hooks/use-confetti-store";
+
 
 interface ActionsProps {
   disabled: boolean,
@@ -25,6 +28,8 @@ export const Actions = ({
 
 
   const router = useRouter()
+
+  const confetti = useConfettiStore()
   
   const[isLoading, setIsLoading] = useState(false)
 
@@ -38,6 +43,7 @@ export const Actions = ({
       } else {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`)
         toast.success("Chapter published")
+        confetti.onOpen
       }
 
       router.refresh()
