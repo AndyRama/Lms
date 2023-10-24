@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button"
 import { ConfirmModal } from "@/components/modals/confirm-modal";
-import {useConfettiStore} from "@/hooks/use-confetti-store";
+import {useConfettiStore} from "@/hook/use-confetti-store";
 
 
 interface ActionsProps {

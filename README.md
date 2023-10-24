@@ -26,7 +26,7 @@ Key Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next13-lms-platform.git
+git clone https://github.com/Andyrama/lemurian.git
 ```
 
 ### Install packages
@@ -76,3 +76,11 @@ npx prisma db push
 ```shell
 npm run dev
 ```
+
+## Available commands
+
+Running commands with npm `npm run [command]`
+
+| command         | description                              |
+| :-------------- | :--------------------------------------- |
+| `dev`           | Starts a development instance of the app |
