@@ -20,14 +20,36 @@ export const columns: ColumnDef<Course>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4"/>
         </Button>
       )
-    }
+    },
   },
   {
     accessorKey: "price",
-    header: "Price",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(
+            column.getIsSorted() === "asc")}
+        >
+          Price
+          <ArrowUpDown className="ml-2 h-4 w-4"/>
+        </Button>
+      )
+    }
   },
   {
     accessorKey: "isPublished",
-    header: "Published",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(
+            column.getIsSorted() === "asc")}
+        >
+          Publish
+          <ArrowUpDown className="ml-2 h-4 w-4"/>
+        </Button>
+      )
+    }
   },
 ]
