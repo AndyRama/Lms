@@ -3,7 +3,7 @@
 import { Course } from "@prisma/client"
 import { ColumnDef, RowSelection } from "@tanstack/react-table"
 
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react"
+import { ArrowUpDown, Badge, MoreHorizontal, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -56,6 +57,18 @@ export const columns: ColumnDef<Course>[] = [
           Publish
           <ArrowUpDown className="ml-2 h-4 w-4"/>
         </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const isPublished = row.getValue("isPublished") || false
+
+      return (
+       <Badge className={cn(
+        "bg-slate-500",
+        isPublished && "bg-sky-700"
+       )}>
+        {isPublished ? "Published" : "Draft"}
+       </Badge>
       )
     }
   },
