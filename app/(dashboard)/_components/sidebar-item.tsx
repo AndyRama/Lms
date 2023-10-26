@@ -24,7 +24,7 @@ export const SidebarItem = ({
     //Default route
     (pathname === '/' && href === '/') ||
     //Exact same page
-    pathname===href ||
+    pathname === href ||
     //Parent path for specifique page studant or teacher 
     pathname?.startsWith(`${href}/`)
 

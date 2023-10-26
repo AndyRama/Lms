@@ -68,7 +68,7 @@ export const columns: ColumnDef<Course>[] = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-4 w-8 p-0">
               <span className="sr-only">Open Menu</span>
-              <MoreHorizontal/>
+              <MoreHorizontal className="w-4 h-4"/>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
