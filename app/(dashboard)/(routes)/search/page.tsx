@@ -1,4 +1,11 @@
-const SearchPage = () => {
+import { db } from "@/lib/db";
+
+const SearchPage = async () => {
+  const categories = await db.category.findMany({
+    orderBy:{
+      name:"asc"
+    }
+  })
   return ( 
     <div>
       this is a search page 

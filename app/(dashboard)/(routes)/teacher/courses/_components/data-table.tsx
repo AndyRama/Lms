@@ -72,7 +72,6 @@ export function DataTable<TData, TValue>({
             New course
          </Button>      
         </Link>
-
       </div>
       <div className="rounded-md border">
         <Table>
