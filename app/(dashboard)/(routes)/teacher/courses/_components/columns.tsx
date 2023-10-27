@@ -6,6 +6,7 @@ import { ColumnDef, RowSelection } from "@tanstack/react-table"
 import { ArrowUpDown, Badge, MoreHorizontal, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 import { 
   DropdownMenu,
@@ -13,7 +14,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
 
 export const columns: ColumnDef<Course>[] = [
   {
