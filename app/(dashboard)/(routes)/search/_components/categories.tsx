@@ -9,15 +9,27 @@ import {
   FcOldTimeCamera,
   FcSalesPerformance,
   FcSportsMode,
-} from "react-icon/fc"
+} from "react-icons/fc"
+
+import { IconType } from "react-icons"
 
 interface CategoriesProps {
   items: Category[]
 }
 
+const iconMap: Record<Category["name"], IconType> = {
+  "Music": FcMusic,
+  "Photography": FcOldTimeCamera,
+  "Fitness" : FcSportsMode,
+  "Accounting": FcSalesPerformance,
+  "Computer Science" : FcMultipleDevices,
+  "Filming": FcFilmReel,
+  "Engineering": FcEngineering,
+}
+
 export const Categories = ({ items, }: CategoriesProps) => {
   return (
-    <div>
+    <div className="flex items-center gap-x-2 overflow-x-auto pb-2">
       Categories !
     </div>
   )
