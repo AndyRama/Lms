@@ -39,8 +39,9 @@ export const CategoryItem = ({
         categoryId: isSelected ? null : value,
       }
     }, { skipNull: true, skipEmptyString: true });
+
+    router.push(url);
   };
-  
   return (
     <button className={cn(
       "py-2 px-3 text-sm border border-slate-200 rounded-full flex items-center gap-x-1 hover:border-sky-700 transition")}>
