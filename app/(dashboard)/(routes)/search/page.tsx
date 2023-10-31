@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "../../../../lib/db";
 import { Categories } from "./_components/categories";
 
 const SearchPage = async () => {
