@@ -6,6 +6,7 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet";
 import { Sidebar } from "./sidebar";
+import React from "react";
 
 export const MobileSidebar = () => {
   return (

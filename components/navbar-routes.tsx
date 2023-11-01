@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "./ui/button"
 import { LogOut } from "lucide-react"
 import Link from "next/link";
+import React from "react"
  
 export const NavbarRoutes = () => {
   const pathname = usePathname()
@@ -13,7 +14,7 @@ export const NavbarRoutes = () => {
   const isTeacherPage = pathname?.startsWith("/teacher")
 
   //Individual Course page
-  const isPlayerPage = pathname?.includes("/chapter")
+  const isPlayerPage = pathname === "/chapter"
 
   return (
     <div className="flex gap-x-2 ml-auto">
